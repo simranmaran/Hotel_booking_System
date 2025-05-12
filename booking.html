@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Royal Stay - Booking</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background-color: #f5f5f5;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background-color: #1389d7;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffd700;
+    }
+
+    .navbar ul li a.active {
+      color: #ffd700;
+      border-bottom: 2px solid #ffd700;
+    }
+
+    /* Banner */
+    .banner {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/400');
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+
+    .banner h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .banner p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Booking Container */
+    .booking-container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .search-bar {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+    }
+
+    .search-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input, .form-group select {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    .search-btn {
+      background-color: #00c6ff;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 24px;
+    }
+
+    .search-btn:hover {
+      background-color: #007acb;
+    }
+
+    /* Available Rooms */
+    .rooms-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .room-card {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .room-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .room-img {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .room-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .room-card:hover .room-img img {
+      transform: scale(1.1);
+    }
+
+    .room-info {
+      padding: 20px;
+    }
+
+    .room-type {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .room-features {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      color: #666;
+    }
+
+    .room-price {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1389d7;
+      margin-bottom: 15px;
+    }
+
+    .book-now {
+      background-color: #00c6ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .book-now:hover {
+      background-color: #007acb;
+    }
+
+    /* Booking Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .close {
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .booking-form h3 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .booking-form input, .booking-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .submit-booking {
+      background-color: #00c6ff;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    .submit-booking:hover {
+      background-color: #007acb;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 0 20px;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .footer-section h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #ffd700;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #ffd700;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-link {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: #555;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+
+    .social-link:hover {
+      background-color: #ffd700;
+    }
+
+    .copyright {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #555;
+      text-align: center;
+      color: #ccc;
+    }
+
+    @media screen and (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 15px 20px;
+      }
+      
+      .navbar ul {
+        margin-top: 15px;
+        gap: 15px;
+      }
+      
+      .banner h1 {
+        font-size: 36px;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .navbar ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .search-form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Royal Stay</div>
+    <ul>
+      <li><a href="./home.html">Home</a></li>
+      <li><a href="./rooms.html">Rooms</a></li>
+      <li><a href="#" class="active">Booking</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Banner -->
+  <div class="banner">
+    <div>
+      <h1>Book Your Stay</h1>
+      <p>Experience luxury and comfort at Royal Stay. Find and book your perfect accommodation.</p>
+    </div>
+  </div>
+
+  <!-- Booking Container -->
+  <div class="booking-container">
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <div class="search-form">
+        <div class="form-group">
+          <label for="check-in">Check-in Date</label>
+          <input type="date" id="check-in" required>
+        </div>
+        <div class="form-group">
+          <label for="check-out">Check-out Date</label>
+          <input type="date" id="check-out" required>
+        </div>
+        <div class="form-group">
+          <label for="adults">Adults</label>
+          <select id="adults">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="children">Children</label>
+          <select id="children">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="rooms">Rooms</label>
+          <select id="rooms">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button class="search-btn" onclick="searchRooms()">Search Availability</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Available Rooms -->
+    <h2 class="rooms-title">Available Accommodations</h2>
+    <div class="rooms-grid" id="rooms-container">
+      <!-- Room cards will be dynamically added here -->
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div id="booking-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div class="booking-form">
+        <h3 id="modal-room-title">Book Room</h3>
+        <form id="confirm-booking">
+          <input type="text" placeholder="Full Name" required>
+          <input type="email" placeholder="Email Address" required>
+          <input type="tel" placeholder="Phone Number" required>
+          <textarea placeholder="Special Requests (optional)" rows="3"></textarea>
+          <button type="submit" class="submit-booking">Confirm Booking</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Royal Stay</h3>
+        <p>Luxury accommodations for an unforgettable experience. Premium services, elegant rooms, and world-class amenities.</p>
+        <div class="social-links">
+          <a href="#" class="social-link">f</a>
+          <a href="#" class="social-link">in</a>
+          <a href="#" class="social-link">ig</a>
+          <a href="#" class="social-link">tw</a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="#">Rooms & Suites</a></li>
+          <li><a href="#">Booking</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <ul class="footer-links">
+          <li>123 Luxury Avenue, City</li>
+          <li>Phone: +1 234 567 8900</li>
+          <li>Email: info@royalstay.com</li>
+          <li>Working Hours: 24/7</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 Royal Stay. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Sample room data
+    const roomsData = [
+      {
+        id: 1,
+        type: "Deluxe Room",
+            price: 199,
+        capacity: "2 Adults",
+        size: "35 m²",
+        view: "City View"
+      },
+      {
+        id: 2,
+        type: "Executive Suite",
+        image: "/api/placeholder/400/300",
+        price: 299,
+        capacity: "2 Adults, 2 Children",
+        size: "55 m²",
+        view: "Ocean View"
+      },
+      {
+        id: 3,
+        type: "Royal Penthouse",
+        image: "/api/placeholder/400/300",
+        price: 499,
+        capacity: "4 Adults",
+        size: "120 m²",
+        view: "Panoramic View"
+      },
+      {
+        id: 4,
+        type: "Family Room",
+        image: "/api/placeholder/400/300",
+        price: 249,
+        capacity: "2 Adults, 3 Children",
+        size: "65 m²",
+        view: "Garden View"
+      }
+    ];
+
+    // Display rooms
+    function displayRooms(rooms = roomsData) {
+      const roomsContainer = document.getElementById('rooms-container');
+      roomsContainer.innerHTML = '';
+
+      rooms.forEach(room => {
+        const roomCard = document.createElement('div');
+        roomCard.className = 'room-card';
+        roomCard.innerHTML = `
+          <div class="room-img">
+            <img src="${room.image}" alt="${room.type}">
+          </div>
+          <div class="room-info">
+            <h3 class="room-type">${room.type}</h3>
+            <div class="room-features">
+              <span>${room.capacity}</span> | 
+              <span>${room.size}</span> | 
+              <span>${room.view}</span>
+            </div>
+            <div class="room-price">$${room.price} <span style="font-size: 16px; color: #666;">/ night</span></div>
+            <button class="book-now" onclick="openModal('${room.type}')">Book Now</button>
+          </div>
+        `;
+        roomsContainer.appendChild(roomCard);
+      });
+    }
+
+    // Initialize rooms
+    window.onload = function() {
+      displayRooms();
+      
+      // Set minimum dates for check-in/out
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('check-in').min = today;
+      document.getElementById('check-out').min = today;
+      
+      // Set default dates (today and tomorrow)
+      document.getElementById('check-in').value = today;
+      
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById('check-out').value = tomorrow.toISOString().split('T')[0];
+      
+      // Add event listener for check-in date change
+      document.getElementById('check-in').addEventListener('change', function() {
+        const checkInDate = new Date(this.value);
+        checkInDate.setDate(checkInDate.getDate() + 1);
+        document.getElementById('check-out').min = checkInDate.toISOString().split('T')[0];
+        
+        // If check-out date is before new check-in date, update it
+        const checkOutDate = new Date(document.getElementById('check-out').value);
+        if (checkOutDate <= new Date(this.value)) {
+          document.getElementById('check-out').value = checkInDate.toISOString().split('T')[0];
+        }
+      });
+    };
+
+    // Search rooms function
+    function searchRooms() {
+      const checkIn = document.getElementById('check-in').value;
+      const checkOut = document.getElementById('check-out').value;
+      const adults = document.getElementById('adults').value;
+      const children = document.getElementById('children').value;
+      
+      // Simulate search with existing data (in real app, this would be an API call)
+      // For demo purposes, we'll just filter rooms based on capacity
+      const totalGuests = parseInt(adults) + parseInt(children);
+      
+      let filteredRooms = roomsData;
+      
+      if (totalGuests > 2) {
+        filteredRooms = roomsData.filter(room => {
+          // Simple check - this would be more sophisticated in a real app
+          return room.capacity.includes('4') || room.capacity.includes('3');
+        });
+      }
+      
+      // Show success message
+      alert(`Searching for rooms from ${checkIn} to ${checkOut} for ${adults} adults and ${children} children`);
+      
+      // Display filtered rooms
+      displayRooms(filteredRooms);
+    }
+
+    // Modal functions
+    function openModal(roomType) {
+      document.getElementById('modal-room-title').textContent = `Book ${roomType}`;
+      document.getElementById('booking-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('booking-modal').style.display = 'none';
+    }
+
+    // Handle form submission
+    document.getElementById('confirm-booking').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Booking confirmed! A confirmation has been sent to your email.');
+      closeModal();
+    });
+
+    // Close modal if clicked outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('booking-modal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+  </script>
+</body>
+</html>

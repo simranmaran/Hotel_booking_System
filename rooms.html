@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Royal Stay - Our Rooms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      background-color: #f5f5f5;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background-color: #1389d7;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffd700;
+    }
+
+    .active {
+      border-bottom: 2px solid #ffd700;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-swiper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 10;
+      width: 80%;
+    }
+
+    .hero-text h1 {
+      font-size: 50px;
+      margin-bottom: 15px;
+      font-family: 'Great Vibes', cursive;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Tabs */
+    .rooms-tabs {
+      max-width: 1200px;
+      margin: -30px auto 0;
+      position: relative;
+      z-index: 100;
+    }
+
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 50px;
+    }
+
+    .tab-btn {
+      padding: 15px 30px;
+      background-color: white;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .tab-btn.active {
+      background-color: #1389d7;
+      color: white;
+    }
+
+    /* Room cards */
+    .room-section {
+      max-width: 1200px;
+      margin: 0 auto 80px;
+      padding: 0 20px;
+    }
+
+    .room-container {
+      display: none;
+    }
+
+    .room-container.active {
+      display: block;
+    }
+
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .room-card {
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .room-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .room-image-container {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+    }
+
+    .room-swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .room-swiper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .room-price {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background-color: rgba(19, 137, 215, 0.9);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 600;
+      z-index: 10;
+    }
+
+    .room-details {
+      padding: 25px;
+    }
+
+    .room-name {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .room-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .room-description {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .room-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #1389d7;
+      color: white;
+      flex: 2;
+    }
+
+    .btn-primary:hover {
+      background-color: #0e6cb0;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: #1389d7;
+      border: 1px solid #1389d7;
+      flex: 1;
+    }
+
+    .btn-secondary:hover {
+      background-color: #f0f8ff;
+    }
+
+    /* Room modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1100;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background-color: white;
+      border-radius: 15px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+      color: white;
+      z-index: 1200;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-swiper {
+      width: 100%;
+      height: 400px;
+    }
+
+    .modal-swiper .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-details {
+      padding: 30px;
+    }
+
+    .modal-title {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .modal-price {
+      font-size: 24px;
+      color: #1389d7;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .modal-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .modal-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #666;
+    }
+
+    .modal-description {
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .modal-amenities {
+      margin-bottom: 30px;
+    }
+
+    .modal-amenities h3 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+    }
+
+    .amenity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #666;
+    }
+
+    .check-icon {
+      color: #1389d7;
+      font-weight: bold;
+    }
+
+    .book-btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      background-color: #1389d7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .book-btn:hover {
+      background-color: #0e6cb0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #1389d7;
+      color: white;
+      padding: 40px 0 20px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .footer-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .footer-links h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links ul li a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links ul li a:hover {
+      color: #ffd700;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        padding: 15px 20px;
+      }
+
+      .navbar ul {
+        margin-top: 15px;
+        gap: 15px;
+      }
+
+      .hero-text h1 {
+        font-size: 36px;
+      }
+
+      .hero-text p {
+        font-size: 16px;
+      }
+
+      .tab-buttons {
+        flex-wrap: wrap;
+      }
+
+      .room-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .navbar ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero-text h1 {
+        font-size: 30px;
+      }
+
+      .tab-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+
+      .modal-features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Royal Stay</div>
+    <ul>
+      <li><a href="./home.html">Home</a></li>
+      <li><a href="#" class="active">Rooms</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="swiper hero-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="./images.jpeg" alt="Luxury Room"></div>
+        <div class="swiper-slide"><img src="./img1.jpg" alt="Suite Room"></div>
+        <div class="swiper-slide"><img src="./img2.jpg" alt="Deluxe Room"></div>
+      </div>
+    </div>
+    <div class="hero-text">
+      <h1>Luxurious Accommodations</h1>
+      <p>Experience unparalleled comfort and elegance in our exquisite rooms and suites</p>
+    </div>
+  </section>
+
+  <!-- Room Tabs -->
+  <section class="rooms-tabs">
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="all">All Rooms</button>
+      <button class="tab-btn" data-tab="standard">Standard</button>
+      <button class="tab-btn" data-tab="deluxe">Deluxe</button>
+      <button class="tab-btn" data-tab="suite">Suites</button>
+    </div>
+  </section>
+
+  <!-- Room Sections -->
+  <section class="room-section">
+    <!-- All Rooms -->
+    <div class="room-container active" id="all">
+      <div class="room-grid">
+        <!-- Standard Room -->
+        <div class="room-card" data-room="standard-1">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="./img1.jpg" alt="Standard Room 1"></div>
+                <div class="swiper-slide"><img src="./img2.jpg" alt="Standard Room 2"></div>
+                <div class="swiper-slide"><img src="./img3.jpg" alt="Standard Room 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹5,000 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Standard Room</h3>
+            <div class="room-features">
+              <span class="feature">👥 2 Guests</span>
+              <span class="feature">🛏️ 1 King Bed</span>
+              <span class="feature">📐 35 m²</span>
+            </div>
+            <p class="room-description">Our standard rooms offer all essential amenities for a comfortable stay with modern décor and city views.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deluxe Room -->
+        <div class="room-card" data-room="deluxe-1">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="./img5.jpeg" alt="Deluxe Room 1"></div>
+                <div class="swiper-slide"><img src="./img4.jpg" alt="Deluxe Room 2"></div>
+                <div class="swiper-slide"><img src="./img2.jpg" alt="Deluxe Room 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹8,000 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Deluxe Room</h3>
+            <div class="room-features">
+              <span class="feature">👥 2 Guests</span>
+              <span class="feature">🛏️ 1 King Bed</span>
+              <span class="feature">📐 45 m²</span>
+            </div>
+            <p class="room-description">Spacious deluxe rooms featuring elegant furnishings, enhanced amenities, and a private balcony with panoramic views.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Executive Suite -->
+        <div class="room-card" data-room="suite-1">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Executive Suite 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Executive Suite 2"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Executive Suite 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹12,000 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Executive Suite</h3>
+            <div class="room-features">
+              <span class="feature">👥 3 Guests</span>
+              <span class="feature">🛏️ 1 King Bed</span>
+              <span class="feature">📐 60 m²</span>
+            </div>
+            <p class="room-description">Luxurious suite with separate living area, premium amenities, and exclusive access to the executive lounge.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Presidential Suite -->
+        <div class="room-card" data-room="suite-2">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Presidential Suite 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Presidential Suite 2"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Presidential Suite 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹20,000 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Presidential Suite</h3>
+            <div class="room-features">
+              <span class="feature">👥 4 Guests</span>
+              <span class="feature">🛏️ 2 King Beds</span>
+              <span class="feature">📐 120 m²</span>
+            </div>
+            <p class="room-description">Our most luxurious accommodation with personalized service, panoramic views, and ultra-premium amenities.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Family Room -->
+        <div class="room-card" data-room="deluxe-2">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Family Room 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Family Room 2"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Family Room 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹10,000 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Family Room</h3>
+            <div class="room-features">
+              <span class="feature">👥 4 Guests</span>
+              <span class="feature">🛏️ 2 Queen Beds</span>
+              <span class="feature">📐 55 m²</span>
+            </div>
+            <p class="room-description">Specially designed for families, featuring ample space, connecting rooms, and child-friendly amenities.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ocean View Room -->
+        <div class="room-card" data-room="standard-2">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Ocean View Room 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Ocean View Room 2"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Ocean View Room 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹6,500 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Ocean View Room</h3>
+            <div class="room-features">
+              <span class="feature">👥 2 Guests</span>
+              <span class="feature">🛏️ 1 King Bed</span>
+              <span class="feature">📐 40 m²</span>
+            </div>
+            <p class="room-description">Enjoy breathtaking ocean views from this beautiful room featuring a private balcony and premium amenities.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Standard Rooms -->
+    <div class="room-container" id="standard">
+      <div class="room-grid">
+        <!-- Standard Room -->
+        <div class="room-card" data-room="standard-1">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Standard Room 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Standard Room 2"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Standard Room 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹5,000 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Standard Room</h3>
+            <div class="room-features">
+              <span class="feature">👥 2 Guests</span>
+              <span class="feature">🛏️ 1 King Bed</span>
+              <span class="feature">📐 35 m²</span>
+            </div>
+            <p class="room-description">Our standard rooms offer all essential amenities for a comfortable stay with modern décor and city views.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ocean View Room -->
+        <div class="room-card" data-room="standard-2">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Ocean View Room 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Ocean View Room 2"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Ocean View Room 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹6,500 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Ocean View Room</h3>
+            <div class="room-features">
+              <span class="feature">👥 2 Guests</span>
+              <span class="feature">🛏️ 1 King Bed</span>
+              <span class="feature">📐 40 m²</span>
+            </div>
+            <p class="room-description">Enjoy breathtaking ocean views from this beautiful room featuring a private balcony and premium amenities.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Deluxe Rooms -->
+    <div class="room-container" id="deluxe">
+      <div class="room-grid">
+        <!-- Deluxe Room -->
+        <div class="room-card" data-room="deluxe-1">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Deluxe Room 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Deluxe Room 2"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Deluxe Room 3"></div>
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+            <div class="room-price">₹8,000 / night</div>
+          </div>
+          <div class="room-details">
+            <h3 class="room-name">Deluxe Room</h3>
+            <div class="room-features">
+              <span class="feature">👥 2 Guests</span>
+              <span class="feature">🛏️ 1 King Bed</span>
+              <span class="feature">📐 45 m²</span>
+            </div>
+            <p class="room-description">Spacious deluxe rooms featuring elegant furnishings, enhanced amenities, and a private balcony with panoramic views.</p>
+            <div class="room-buttons">
+              <a href="booking.html" class="btn btn-primary">Book Now</a>
+              <a href="#" class="btn btn-secondary view-details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Family Room -->
+        <div class="room-card" data-room="deluxe-2">
+          <div class="room-image-container">
+            <div class="swiper room-swiper">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="/api/placeholder/400/300" alt="Family Room 1"></div>
+                <div class="swiper-slide"><img src="/api/placeholder/400/300"
