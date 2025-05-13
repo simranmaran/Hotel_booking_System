@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hotel Booking</title>
+</head>
+<body onload="send()">
+
+  <h2>Search Hotel Entries</h2>
+  <input type="text" id="search1" oninput="search2()" placeholder="Search by Name or Person"><br><br>
+
+  <h2>Add New Hotel Entry</h2>
+  <form onsubmit="return datasend()">
+    Name: <input type="text" id="name" required><br>
+    Addhar: <input type="text" id="addhar" required><br>
+    Mobile: <input type="text" id="mobile" required><br>
+    Person: <input type="number" id="person" required><br>
+    Address: <input type="text" id="address" required><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <h2>Hotel Booking List</h2>
+  <table border="1" cellpadding="10px" cellspacing="10px">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Addhar</th>
+        <th>Mobile</th>
+        <th>Person</th>
+        <th>Price</th>
+        <th>Address</th>
+        <th>DELETE</th>
+        <th>Update</th>
+      </tr>
+    </thead>
+    <tbody id="show13"></tbody>
+  </table>
+
+  <div id="formData"></div>
+
+  <script>
+    let send = async () => {
+      let url = "http://localhost:3000/Hotel";
+      let res = await fetch(url);
+      let data = await res.json();
+      console.log(data);
+      datashow(data);
+    };
+
+    let datashow = (data) => {
+      let ab = document.querySelector("#show13");
+      ab.innerHTML = "";
+
+      data.map((e) => {
+        ab.innerHTML += `
+          <tr>
+            <td>${e.Name}</td>
+            <td>${e.Addhar}</td>
+            <td>${e.Mobile}</td>
+            <td>${e.Person}</td>
+            <td>${e.Price * e.Person}</td>
+            <td>${e.Address}</td>
+            <td onclick="del1('${e.id}')">DELETE</td>
+            <td onclick="final('${e.id}')">Update</td>
+          </tr>
+        `;
+      });
+    };
+
+    let del1 = (id) => {
+      let url = `http://localhost:3000/Hotel/${id}`;
+      fetch(url, { method: "DELETE" }).then(() => {
+        send(); // Reload updated data
+      });
+    };
+
+    let datasend = () => {
+      let inpname = document.querySelector("#name").value;
+      let inpaddhar = document.querySelector("#addhar").value;
+      let inpmobile = document.querySelector("#mobile").value;
+      let inmperson = document.querySelector("#person").value;
+      let inpaddress = document.querySelector("#address").value;
+
+      let url = "http://localhost:3000/Hotel";
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          Name: inpname,
+          Addhar: inpaddhar,
+          Mobile: inpmobile,
+          Person: inmperson,
+          Price: 500,
+          Address: inpaddress
+        })
+      }).then(() => {
+        send();
+      });
+
+      return false; // Prevent form reload
+    };
+
+    let final = async (id) => {
+      let url = `http://localhost:3000/Hotel/${id}`;
+      let res1 = await fetch(url);
+      let getData = await res1.json();
+
+      let formdata = document.querySelector("#formData");
+
+      formdata.innerHTML = `
+        <form action="#">
+          Enter Name: <input type="text" id="upname" value="${getData.Name}"><br>
+          Enter Addhar: <input type="text" id="upaddhar" value="${getData.Addhar}"><br>
+          Enter Mobile: <input type="text" id="upmobile" value="${getData.Mobile}"><br>
+          Enter Person: <input type="number" id="upperson" value="${getData.Person}"><br>
+          Enter Address: <input type="text" id="upaddress" value="${getData.Address}"><br>
+          <input type="button" value="Update" onclick="Update1('${getData.id}')">
+        </form>
+      `;
+    };
+
+    let Update1 = (id) => {
+      let url = `http://localhost:3000/Hotel/${id}`;
+
+      let inpname = document.querySelector("#upname").value;
+      let inpaddhar = document.querySelector("#upaddhar").value;
+      let inpmobile = document.querySelector("#upmobile").value;
+      let inpperson = document.querySelector("#upperson").value;
+      let inpaddress = document.querySelector("#upaddress").value;
+
+      fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          Name: inpname,
+          Addhar: inpaddhar,
+          Mobile: inpmobile,
+          Person: inpperson,
+          Price: 500,
+          Address: inpaddress
+        })
+      }).then(() => {
+        send(); // Reload data
+        document.querySelector("#formData").innerHTML = ""; // Clear update form
+      });
+    };
+
+    let search2 = async () => {
+      let inp12 = document.querySelector("#search1").value.toLowerCase();
+      let url = "http://localhost:3000/Hotel";
+      let res = await fetch(url);
+      let data1 = await res.json();
+
+      let filterdata = data1.filter((e) => {
+        return (
+          e.Name.toLowerCase().includes(inp12) ||
+          e.Person.toString().includes(inp12)
+        );
+      });
+
+      datashow(filterdata);
+    };
+  </script>
+</body>
+</html>

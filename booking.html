@@ -401,7 +401,7 @@
   <nav class="navbar">
     <div class="logo">Royal Stay</div>
     <ul>
-      <li><a href="./home.html">Home</a></li>
+      <li><a href="./index.html">Home</a></li>
       <li><a href="./rooms.html">Rooms</a></li>
       <li><a href="#" class="active">Booking</a></li>
       <li><a href="./about.html">About</a></li>
@@ -633,7 +633,6 @@
       const totalGuests = parseInt(adults) + parseInt(children);
       
       let filteredRooms = roomsData;
-      
       if (totalGuests > 2) {
         filteredRooms = roomsData.filter(room => {
           // Simple check - this would be more sophisticated in a real app
