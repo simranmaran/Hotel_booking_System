@@ -1,153 +1,234 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Royal Stay - Login | Signup</title>
+  <title>Royal Stay - About Us</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <!-- Swiper CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
-  <link rel="stylesheet" href="index.css">
+ <link rel="stylesheet" href="index.css"/>
 </head>
 <body>
-
-
-
-  <!-- Swiper Background -->
-
-  <div class="swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="./images/hotel.jpg" alt="Hotel 1"></div>
-      <div class="swiper-slide"><img src="./images/hotel1.jpg" alt="Hotel 2"></div>
-      <div class="swiper-slide"><img src="./images/hotel4.jpg" alt="Hotel 3"></div>
-      <div class="swiper-slide"><img src="./bccadd6018a0421487734769d7014e73.jpg" alt="Hotel 4"></div>
-    </div>
-  </div>
 
   <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">Royal Stay</div>
     <ul>
-      <li><a href="./index.html">Home</a></li>
+      <li><a href="#" class='active'>Home</a></li>
       <li><a href="./rooms.html">Rooms</a></li>
       <li><a href="./booking.html">Booking</a></li>
-      <li><a href="./about.html">About</a></li>
       <li><a href="./contact.html">Contact</a></li>
-      <li><a href="./Mybooking.html">Mybooking</a></li>
-
     </ul>
   </nav>
 
-  <!-- Login/Signup Form -->
-  <div class="container" id="form-container">
-    <h2 id="form-title">Login</h2>
-    <form id="form" onsubmit="handleFormSubmit(event)">
-      <input type="email" id="email" placeholder="Email" required />
-      <div class="show-password">
-        <input type="password" id="password" placeholder="Password" required />
-        <span onclick="togglePassword()">👁</span>
-      </div>
-      <button type="submit">Login</button>
-    </form>
-    <div class="toggle-msg">
-      Don't have an account? <a onclick="toggleForm()">Sign up here</a>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Our Story</h1>
+    <p>Experience luxury redefined at Royal Stay, where hospitality meets elegance and comfort meets sophistication.</p>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="section-title">
+      <h2>About Royal Stay</h2>
     </div>
-  </div>
+    <div class="about-content">
+      <div class="about-text">
+        <h3>A Tradition of Excellence</h3>
+        <p>Established in 1985, Royal Stay has been providing exceptional hospitality services for over three decades. What started as a boutique hotel with just 15 rooms has now grown into a luxurious establishment with over 200 rooms across multiple locations.</p>
+        <p>Our vision is to create unforgettable experiences for every guest who walks through our doors. We believe in personalizing service to meet the unique needs of each individual, ensuring that your stay with us is nothing short of perfect.</p>
+        <p>From the architecture of our buildings to the design of our rooms, every element of Royal Stay has been carefully curated to provide an atmosphere of luxury and comfort. Our dedicated team works tirelessly to maintain the highest standards of service and to ensure that your experience exceeds expectations.</p>
+      </div>
+      <div class="about-img"></div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-title">
+      <h2>Why Choose Us</h2>
+    </div>
+    <div class="features-container">
+      <div class="feature-box">
+        <div class="feature-icon">🌟</div>
+        <h3>Luxury Accommodations</h3>
+        <p>Experience the epitome of comfort with our elegantly designed rooms and suites, featuring premium amenities and breathtaking views.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🍽️</div>
+        <h3>Fine Dining</h3>
+        <p>Indulge in exceptional culinary experiences at our award-winning restaurants, offering a diverse range of international and local cuisines.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">💆</div>
+        <h3>Spa & Wellness</h3>
+        <p>Rejuvenate your mind, body, and soul at our state-of-the-art spa, offering a variety of treatments and wellness programs.</p>
+      </div>
+      <div class="feature-box">
+        <div class="feature-icon">🏊</div>
+        <h3>Recreation</h3>
+        <p>From swimming pools to fitness centers and outdoor activities, we offer a plethora of recreational facilities for your enjoyment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team">
+    <div class="section-title">
+      <h2>Our Leadership Team</h2>
+    </div>
+    <div class="team-container">
+      <div class="team-member">
+        <img class="member-img" src="" alt="CEO">
+        <h3>Robert Johnson</h3>
+        <p>Chief Executive Officer</p>
+        <div class="social">
+          <a href="span"><span>🔗</span></a>
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img class="member-img" src="./images/girlsCeo.jpg" alt="Operations Director">
+        <h3>Sarah Williams</h3>
+        <p>Director of Operations</p>
+        <div class="social">
+          <a href="#"><span>🔗</span></a>
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img class="member-img" src="./images/girlsCeo.jpg" alt="Executive Chef">
+        <h3>Michael Chen</h3>
+        <p>Executive Chef</p>
+        <div class="social">
+          <a href="#"><span>🔗</span></a>
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📧</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="section-title">
+      <h2>Guest Testimonials</h2>
+    </div>
+    <div class="testimonial-container">
+      <!-- Swiper -->
+      <div class="swiper swiper-testimonial">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="rating">★★★★★</div>
+              <p>"Royal Stay exceeded all our expectations. The service was impeccable, the rooms were luxurious, and the food was divine. We can't wait to return!"</p>
+              <div class="client-info">
+                <img class="client-img" src="./images/bccadd6018a0421487734769d7014e73.jpg" alt="Client">
+                <div class="client-details">
+                  <h4>Emma Thompson</h4>
+                  <p>New York, USA</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="rating">★★★★★</div>
+              <p>"Our anniversary celebration at Royal Stay was nothing short of magical. The staff went above and beyond to make our stay special. Highly recommended!"</p>
+              <div class="client-info">
+                <img class="client-img" src="/api/placeholder/60/60" alt="Client">
+                <div class="client-details">
+                  <h4>David Miller</h4>
+                  <p>London, UK</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <div class="rating">★★★★★</div>
+              <p>"From the moment we checked in to our departure, our business trip was transformed into a pleasant retreat thanks to the exceptional facilities and service at Royal Stay."</p>
+              <div class="client-info">
+                <img class="client-img" src="/api/placeholder/60/60" alt="Client">
+                <div class="client-details">
+                  <h4>Sophia Garcia</h4>
+                  <p>Madrid, Spain</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <h3>Royal Stay</h3>
+        <p>Experience luxury like never before at our premium hotel chain with locations worldwide. We offer exceptional service, luxurious accommodations, and unforgettable experiences.</p>
+        <div class="social-links">
+          <a href="#"><span>📘</span></a>
+          <a href="#"><span>📱</span></a>
+          <a href="#"><span>📸</span></a>
+          <a href="#"><span>📹</span></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li><a href="#">Rooms & Suites</a></li>
+          <li><a href="#">Dining</a></li>
+          <li><a href="#">Facilities</a></li>
+          <li><a href="#">Special Offers</a></li>
+          <li><a href="#">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Info</h3>
+        <div class="contact-info">
+          <span>📍</span>
+          <p>123 Luxury Avenue, Prestige City, 10001</p>
+        </div>
+        <div class="contact-info">
+          <span>📞</span>
+          <p>+1 234 567 8900</p>
+        </div>
+        <div class="contact-info">
+          <span>📧</span>
+          <p>info@royalstay.com</p>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 Royal Stay. All Rights Reserved.</p>
+    </div>
+  </footer>
 
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   <script>
-    // Initialize Swiper
-    var swiper = new Swiper(".swiper", {
-      loop: true,
+    // Initialize Testimonial Swiper
+    var swiperTestimonial = new Swiper(".swiper-testimonial", {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
       autoplay: {
         delay: 5000,
         disableOnInteraction: false,
       },
-      effect: "fade",
-      speed: 1000
+      loop: true
     });
-
-    // Handle form submission
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      
-      // Get form values
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      
-      // You would normally validate credentials here
-      // For now, we'll just redirect to about page after a "fake" login
-      console.log("Login attempt with:", email);
-    
-      
-      // Simulate a brief delay before redirecting (like processing)
-      setTimeout(() => {
-        // Redirect to about page after successful login
-        window.location.href = './about.html';
-      }, 500);
-    }
-
-    // Toggle Login/Signup
-    const formTitle = document.getElementById('form-title');
-    const form = document.getElementById('form');
-    const toggleMsg = document.querySelector('.toggle-msg');
-    let isLogin = true;
-
-    function toggleForm() {
-      isLogin = !isLogin;
-      formTitle.textContent = isLogin ? "Login" : "Sign Up";
-      
-      // Update form with appropriate fields and submit handler
-      if (isLogin) {
-        form.innerHTML = `
-          <input type="email" id="email" placeholder="Email" required />
-          <div class="show-password">
-            <input type="password" id="password" placeholder="Password" required />
-            <span onclick="togglePassword()">👁</span>
-          </div>
-          <button type="submit">Login</button>
-        `;
-        form.onsubmit = handleFormSubmit;
-      } else {
-        form.innerHTML = `
-          <input type="text" id="name" placeholder="Full Name" required />
-          <input type="email" id="email" placeholder="Email" required />
-          <div class="show-password">
-            <input type="password" id="password" placeholder="Password" required />
-            <span onclick="togglePassword()">👁</span>
-          </div>
-          <button type="submit">Sign Up</button>
-        `;
-        form.onsubmit = handleSignupSubmit;
-      }
-
-      toggleMsg.innerHTML = isLogin
-        ? `Don't have an account? <a onclick="toggleForm()">Sign up here</a>`
-        : `Already have an account? <a onclick="toggleForm()">Login</a>`;
-    }
-
-    // Handle signup form submission
-    function handleSignupSubmit(event) {
-      event.preventDefault();
-      
-      // Get form values
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      
-      console.log("Signup attempt with:", name, email);
-      
-      // For demo purposes, we'll just redirect to about page after "signup"
-      setTimeout(() => {
-        window.location.href = './about.html';
-      }, 500);
-    }
-
-    // Toggle Password Visibility
-    function togglePassword() {
-      const pwd = document.getElementById("password");
-      pwd.type = pwd.type === "password" ? "text" : "password";
-    }
   </script>
 </body>
 </html>
