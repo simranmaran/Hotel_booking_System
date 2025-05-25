@@ -1,234 +1,482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Royal Stay - About Us</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
- <link rel="stylesheet" href="index.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Stay - Luxury Hotel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23667eea" width="1200" height="600"/><circle fill="%23764ba2" cx="200" cy="150" r="100" opacity="0.3"/><circle fill="%23ffd700" cx="900" cy="400" r="80" opacity="0.2"/></svg>');
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 5px 15px rgba(255,215,0,0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255,215,0,0.6);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-image {
+            height: 400px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #ffd700;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">🏨 Royal Stay</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="./rooms.html">rooms</a></li>
+                <li><a href="./booking.html">booking</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo">Royal Stay</div>
-    <ul>
-      <li><a href="#" class='active'>Home</a></li>
-      <li><a href="./rooms.html">Rooms</a></li>
-      <li><a href="./booking.html">Booking</a></li>
-      <li><a href="./contact.html">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Our Story</h1>
-    <p>Experience luxury redefined at Royal Stay, where hospitality meets elegance and comfort meets sophistication.</p>
-  </section>
-
-  <!-- About Section -->
-  <section class="about-section">
-    <div class="section-title">
-      <h2>About Royal Stay</h2>
-    </div>
-    <div class="about-content">
-      <div class="about-text">
-        <h3>A Tradition of Excellence</h3>
-        <p>Established in 1985, Royal Stay has been providing exceptional hospitality services for over three decades. What started as a boutique hotel with just 15 rooms has now grown into a luxurious establishment with over 200 rooms across multiple locations.</p>
-        <p>Our vision is to create unforgettable experiences for every guest who walks through our doors. We believe in personalizing service to meet the unique needs of each individual, ensuring that your stay with us is nothing short of perfect.</p>
-        <p>From the architecture of our buildings to the design of our rooms, every element of Royal Stay has been carefully curated to provide an atmosphere of luxury and comfort. Our dedicated team works tirelessly to maintain the highest standards of service and to ensure that your experience exceeds expectations.</p>
-      </div>
-      <div class="about-img"></div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features">
-    <div class="section-title">
-      <h2>Why Choose Us</h2>
-    </div>
-    <div class="features-container">
-      <div class="feature-box">
-        <div class="feature-icon">🌟</div>
-        <h3>Luxury Accommodations</h3>
-        <p>Experience the epitome of comfort with our elegantly designed rooms and suites, featuring premium amenities and breathtaking views.</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">🍽️</div>
-        <h3>Fine Dining</h3>
-        <p>Indulge in exceptional culinary experiences at our award-winning restaurants, offering a diverse range of international and local cuisines.</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">💆</div>
-        <h3>Spa & Wellness</h3>
-        <p>Rejuvenate your mind, body, and soul at our state-of-the-art spa, offering a variety of treatments and wellness programs.</p>
-      </div>
-      <div class="feature-box">
-        <div class="feature-icon">🏊</div>
-        <h3>Recreation</h3>
-        <p>From swimming pools to fitness centers and outdoor activities, we offer a plethora of recreational facilities for your enjoyment.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team Section -->
-  <section class="team">
-    <div class="section-title">
-      <h2>Our Leadership Team</h2>
-    </div>
-    <div class="team-container">
-      <div class="team-member">
-        <img class="member-img" src="" alt="CEO">
-        <h3>Robert Johnson</h3>
-        <p>Chief Executive Officer</p>
-        <div class="social">
-          <a href="span"><span>🔗</span></a>
-          <a href="#"><span>📱</span></a>
-          <a href="#"><span>📧</span></a>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Welcome to Royal Stay</h1>
+            <p>Experience luxury and comfort like never before</p>
+            <a href="#about" class="btn">Discover More</a>
         </div>
-      </div>
-      <div class="team-member">
-        <img class="member-img" src="./images/girlsCeo.jpg" alt="Operations Director">
-        <h3>Sarah Williams</h3>
-        <p>Director of Operations</p>
-        <div class="social">
-          <a href="#"><span>🔗</span></a>
-          <a href="#"><span>📱</span></a>
-          <a href="#"><span>📧</span></a>
-        </div>
-      </div>
-      <div class="team-member">
-        <img class="member-img" src="./images/girlsCeo.jpg" alt="Executive Chef">
-        <h3>Michael Chen</h3>
-        <p>Executive Chef</p>
-        <div class="social">
-          <a href="#"><span>🔗</span></a>
-          <a href="#"><span>📱</span></a>
-          <a href="#"><span>📧</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Testimonials -->
-  <section class="testimonials">
-    <div class="section-title">
-      <h2>Guest Testimonials</h2>
-    </div>
-    <div class="testimonial-container">
-      <!-- Swiper -->
-      <div class="swiper swiper-testimonial">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="rating">★★★★★</div>
-              <p>"Royal Stay exceeded all our expectations. The service was impeccable, the rooms were luxurious, and the food was divine. We can't wait to return!"</p>
-              <div class="client-info">
-                <img class="client-img" src="./images/bccadd6018a0421487734769d7014e73.jpg" alt="Client">
-                <div class="client-details">
-                  <h4>Emma Thompson</h4>
-                  <p>New York, USA</p>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>🌟 Our Story</h3>
+                    <p>Royal Stay has been providing exceptional hospitality since 1985. We started as a small boutique hotel and have grown into a luxury chain with locations worldwide.</p>
+                    <br>
+                    <p>Our mission is to create unforgettable experiences for every guest through personalized service, elegant accommodations, and attention to detail.</p>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="rating">★★★★★</div>
-              <p>"Our anniversary celebration at Royal Stay was nothing short of magical. The staff went above and beyond to make our stay special. Highly recommended!"</p>
-              <div class="client-info">
-                <img class="client-img" src="/api/placeholder/60/60" alt="Client">
-                <div class="client-details">
-                  <h4>David Miller</h4>
-                  <p>London, UK</p>
+                <div class="about-image">
+                    🏨 Luxury Hotel
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <div class="rating">★★★★★</div>
-              <p>"From the moment we checked in to our departure, our business trip was transformed into a pleasant retreat thanks to the exceptional facilities and service at Royal Stay."</p>
-              <div class="client-info">
-                <img class="client-img" src="/api/placeholder/60/60" alt="Client">
-                <div class="client-details">
-                  <h4>Sophia Garcia</h4>
-                  <p>Madrid, Spain</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛏️</div>
+                    <h3>Luxury Rooms</h3>
+                    <p>Elegantly designed rooms with premium amenities and stunning views</p>
                 </div>
-              </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3>Fine Dining</h3>
+                    <p>Award-winning restaurants serving international and local cuisines</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💆</div>
+                    <h3>Spa & Wellness</h3>
+                    <p>Rejuvenate your mind and body at our state-of-the-art spa</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏊</div>
+                    <h3>Recreation</h3>
+                    <p>Swimming pools, fitness centers, and outdoor activities</p>
+                </div>
             </div>
-          </div>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-container">
-      <div class="footer-col">
-        <h3>Royal Stay</h3>
-        <p>Experience luxury like never before at our premium hotel chain with locations worldwide. We offer exceptional service, luxurious accommodations, and unforgettable experiences.</p>
-        <div class="social-links">
-          <a href="#"><span>📘</span></a>
-          <a href="#"><span>📱</span></a>
-          <a href="#"><span>📸</span></a>
-          <a href="#"><span>📹</span></a>
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">RJ</div>
+                    <h3>Robert Johnson</h3>
+                    <p>Chief Executive Officer</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">SW</div>
+                    <h3>Sarah Williams</h3>
+                    <p>Director of Operations</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">MC</div>
+                    <h3>Michael Chen</h3>
+                    <p>Executive Chef</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="footer-col">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="./">Home</a></li>
-          <li><a href="#">Rooms & Suites</a></li>
-          <li><a href="#">Dining</a></li>
-          <li><a href="#">Facilities</a></li>
-          <li><a href="#">Special Offers</a></li>
-          <li><a href="#">Reservations</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>Contact Info</h3>
-        <div class="contact-info">
-          <span>📍</span>
-          <p>123 Luxury Avenue, Prestige City, 10001</p>
-        </div>
-        <div class="contact-info">
-          <span>📞</span>
-          <p>+1 234 567 8900</p>
-        </div>
-        <div class="contact-info">
-          <span>📧</span>
-          <p>info@royalstay.com</p>
-        </div>
-      </div>
-    </div>
-    <div class="copyright">
-      <p>&copy; 2025 Royal Stay. All Rights Reserved.</p>
-    </div>
-  </footer>
+    </section>
 
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-  <script>
-    // Initialize Testimonial Swiper
-    var swiperTestimonial = new Swiper(".swiper-testimonial", {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
-      loop: true
-    });
-  </script>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>Address</h3>
+                    <p>123 Luxury Avenue<br>Prestige City, 10001</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Phone</h3>
+                    <p>+1 234 567 8900</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>info@royalstay.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Royal Stay. All Rights Reserved. Made with ❤️</p>
+    </footer>
+
+    <script>
+        // Simple smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Simple animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.feature-card, .team-card, .contact-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
